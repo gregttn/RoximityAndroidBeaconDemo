@@ -5,4 +5,17 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="HeaderText" parent="@android:style/TextAppearance">
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="RangeText" parent="@android:style/TextAppearance">
+        <item name="android:textSize">35dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">15dp</item>
+    </style>
 </resources>
