@@ -5,14 +5,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.gregttn.roximityandroiddemo.app.model.RangeUpdate;
+import com.gregttn.roximityandroiddemo.app.utils.RangeUpdateJSONParser;
 import com.roximity.ibeacon.IBeaconManager;
 import com.roximity.sdk.Roximity;
 import com.roximity.sdk.beacons.BeaconManager;
 import com.roximity.sdk.integration.RoximityActivity;
 
 public class DemoActivity extends RoximityActivity {
-
     public static final int RANGE_SCAN_PERIOD = 5000;
+    private final String TAG = getClass().getSimpleName();
+
+    private RangeUpdateJSONParser rangeUpdateJSONParser = new RangeUpdateJSONParser();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,12 +29,14 @@ public class DemoActivity extends RoximityActivity {
 
     @Override
     public void beaconRangeUpdate(String range) {
-        Log.i(getClass().getSimpleName(), range);
+        RangeUpdate rangeUpdate = rangeUpdateJSONParser.parse(range);
+
+        Log.i(TAG, rangeUpdate.toString());
     }
 
     @Override
     public void messageFired(String message) {
-        Log.i(getClass().getSimpleName(), message);
+        Log.i(TAG, message);
     }
 
     @Override
