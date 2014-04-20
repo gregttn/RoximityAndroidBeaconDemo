@@ -4,12 +4,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.gregttn.roximityandroiddemo.app.model.RangeUpdate;
 import com.gregttn.roximityandroiddemo.app.utils.RangeUpdateJSONParser;
 import com.roximity.ibeacon.IBeaconManager;
-import com.roximity.sdk.Roximity;
-import com.roximity.sdk.beacons.BeaconManager;
 import com.roximity.sdk.integration.RoximityActivity;
 
 public class DemoActivity extends RoximityActivity {
@@ -18,18 +17,34 @@ public class DemoActivity extends RoximityActivity {
 
     private RangeUpdateJSONParser rangeUpdateJSONParser = new RangeUpdateJSONParser();
 
+    private TextView beaconIdTextView;
+    private TextView beaconNameTextView;
+    private TextView rangeTextView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
 
+        this.beaconIdTextView = (TextView) findViewById(R.id.beaconIdTextView);
+        this.beaconNameTextView = (TextView) findViewById(R.id.beaconNameTextView);
+        this.rangeTextView = (TextView) findViewById(R.id.rangeTextView);
+
         IBeaconManager iBeaconManager = IBeaconManager.getInstanceForApplication(this);
         iBeaconManager.setForegroundBetweenScanPeriod(RANGE_SCAN_PERIOD);
+    }
+
+    private void updateDisplay(RangeUpdate rangeUpdate) {
+        this.beaconIdTextView.setText(rangeUpdate.getBeaconId());
+        this.beaconNameTextView.setText(rangeUpdate.getBeaconName());
+        this.rangeTextView.setText(rangeUpdate.getRange().getName());
+        this.rangeTextView.setBackgroundColor(rangeUpdate.getRange().getDisplayColor());
     }
 
     @Override
     public void beaconRangeUpdate(String range) {
         RangeUpdate rangeUpdate = rangeUpdateJSONParser.parse(range);
+        updateDisplay(rangeUpdate);
 
         Log.i(TAG, rangeUpdate.toString());
     }
