@@ -28,5 +28,4 @@ public class DemoActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
