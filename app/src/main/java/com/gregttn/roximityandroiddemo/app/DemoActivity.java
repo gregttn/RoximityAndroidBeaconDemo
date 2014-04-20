@@ -1,16 +1,28 @@
 package com.gregttn.roximityandroiddemo.app;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class DemoActivity extends Activity {
+import com.roximity.sdk.integration.RoximityActivity;
+
+public class DemoActivity extends RoximityActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
+    }
+
+    @Override
+    public void beaconRangeUpdate(String range) {
+        Log.i(getClass().getSimpleName(), range);
+    }
+
+    @Override
+    public void messageFired(String message) {
+        Log.i(getClass().getSimpleName(), message);
     }
 
 
